@@ -5,14 +5,14 @@ from io import BytesIO
 
 S3_BUCKET_URL = "https://vcthackathon-data.s3.us-west-2.amazonaws.com"
 
-def fetch_gzip_and_parse_json(file_name):
+def get_data(file_name):
     """
     Fetch gzip data from the S3 bucket and return parsed JSON.
 
     Args:
-        file_name: A string formatted as {league}/esports-data/{category}.json.gz
+        file_name: A string formatted as {LEAGUE}/esports-data/{category}.json.gz
+                   where LEAGUE has to be: game-changers, vct-international, vct-challengers
                    where the category can be 'leagues', 'tournaments', 'players', 'teams'.
-
     Returns:
         Parsed JSON data, or None if the file is not found or an error occurs.
     """
@@ -29,3 +29,12 @@ def fetch_gzip_and_parse_json(file_name):
         return {"error": f"File '{file_name}' not found. Please check the league or category."}
     else:
         return {"error": f"Failed to download '{file_name}'. Status code: {response.status_code}"}
+
+def main():
+  file_path = f"game-changers/esports-data/players"
+  data = get_data(file_path)
+  if data[0]['id'] != None:
+    print(data[0]['first_name'])
+
+if __name__ == "__main__":
+    main()
