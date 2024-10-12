@@ -30,6 +30,28 @@ def get_data(file_name):
     else:
         return {"error": f"Failed to download '{file_name}'. Status code: {response.status_code}"}
 
+
+def condense_data(data: list, important_fields: list) -> list:
+    """
+    Condenses the dataset by extracting only the values of the important fields from each entry.
+    Organizes these values into a list.
+
+    Args:
+        data (list): The dataset containing the full information (list of dictionaries).
+        important_fields (list): The list of keys that are considered important. Their values will be included in the output.
+
+    Returns:
+        list: A list of lists, each containing the values of the important fields from the original dataset.
+    """
+    condensed_data = []
+    
+    for item in data:
+        condensed_item = [item[key] for key in important_fields if key in item]  # Extract only the values of important fields
+        condensed_data.append(condensed_item)  # Add values as a list
+    
+    return condensed_data
+
+
 def main():
   file_path = f"game-changers/esports-data/players"
   data = get_data(file_path)
