@@ -1,8 +1,7 @@
 from langchain_community.chat_models import ChatOllama
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-from agentExcutor import agent
-from prompt import prompt
+from AIAgent.agentExecutor import agent
 
 def main():
     llm = ChatOllama(model="llama2")  
