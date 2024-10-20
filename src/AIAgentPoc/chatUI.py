@@ -1,7 +1,7 @@
 import streamlit as st
 from responseGen import response_generator
 
-def main(): 
+def UI(): 
     st.title("Valorant AI Agent")
 
     if "messages" not in st.session_state:
@@ -22,5 +22,3 @@ def main():
             response = st.write_stream(response_generator(prompt))
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-if __name__ == "__main__":
-    main()
