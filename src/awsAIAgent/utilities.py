@@ -50,3 +50,13 @@ def condense_data(data: list, important_fields: list) -> list:
         condensed_data.append(condensed_item)  # Add values as a list
     
     return condensed_data
+
+
+def main():
+  file_path = f"game-changers/esports-data/players"
+  data = get_data(file_path)
+  if data[0]['id'] != None:
+    print(data[0]['first_name'])
+
+if __name__ == "__main__":
+    main()
