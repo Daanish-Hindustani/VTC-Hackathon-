@@ -6,16 +6,6 @@ from io import BytesIO
 S3_BUCKET_URL = "https://vcthackathon-data.s3.us-west-2.amazonaws.com"
 
 def get_data(file_name):
-    """
-    Fetch gzip data from the S3 bucket and return parsed JSON.
-
-    Args:
-        file_name: A string formatted as {LEAGUE}/esports-data/{category}.json.gz
-                   where LEAGUE has to be: game-changers, vct-international, vct-challengers
-                   where the category can be 'leagues', 'tournaments', 'players', 'teams'.
-    Returns:
-        Parsed JSON data, or None if the file is not found or an error occurs.
-    """
     remote_file = f"{S3_BUCKET_URL}/{file_name}.json.gz"
     response = requests.get(remote_file, stream=True)
 
@@ -32,17 +22,6 @@ def get_data(file_name):
 
 
 def condense_data(data: list, important_fields: list) -> list:
-    """
-    Condenses the dataset by extracting only the values of the important fields from each entry.
-    Organizes these values into a list.
-
-    Args:
-        data (list): The dataset containing the full information (list of dictionaries).
-        important_fields (list): The list of keys that are considered important. Their values will be included in the output.
-
-    Returns:
-        list: A list of lists, each containing the values of the important fields from the original dataset.
-    """
     condensed_data = []
     
     for item in data:
@@ -51,12 +30,3 @@ def condense_data(data: list, important_fields: list) -> list:
     
     return condensed_data
 
-
-def main():
-  file_path = f"game-changers/esports-data/players"
-  data = get_data(file_path)
-  if data[0]['id'] != None:
-    print(data[0]['first_name'])
-
-if __name__ == "__main__":
-    main()

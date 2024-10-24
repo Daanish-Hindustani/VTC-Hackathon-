@@ -3,6 +3,7 @@ import json
 from query_tool import query_tool
 
 def lambda_handler(event, context):
+    print(event)
     agent = event['agent']
     actionGroup = event['actionGroup']
     function = event['function']
@@ -27,6 +28,9 @@ def lambda_handler(event, context):
                     "body": res_text
                 }
         }
+    
+    
+    
     
     action_response = {
         'actionGroup': actionGroup,

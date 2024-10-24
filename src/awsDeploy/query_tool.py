@@ -1,21 +1,8 @@
 import json
 from utilities import get_data, condense_data
 
+
 def query_tool(league: str, category: str, query_key: str = None, query_value: str = None, important_fields: list = None) -> str:
-    """
-    Retrieves, filters, and condenses data from an S3 bucket based on the given parameters.
-
-    Args:
-        league (str): The league to query data from ('game-changers', 'vct-international', 'vct-challengers').
-        category (str): The category of data to retrieve ('leagues', 'tournaments', 'players', 'teams').
-        query_key (str, optional): A search term or key to filter data on, in snake_case. Defaults to None.
-        query_value (str, optional): A value to filter data on, within the query_key. Defaults to None.
-        important_fields (list, optional): A list of important fields to include in the summary. Defaults to None.
-
-    Returns:
-        str: A JSON string of the filtered and condensed results, or an error message if no data is found or inputs are invalid.
-    """
-
     # Validate category
     valid_categories = ["leagues", "tournaments", "players", "teams"]
     if category not in valid_categories:
@@ -63,17 +50,3 @@ def query_tool(league: str, category: str, query_key: str = None, query_value: s
     return json.dumps(condensed_results, indent=4)
 
 
-def main():
-    res = query_tool({
-         "league": "game-changers",
-        "category": "players",
-        "query_key": "first_name",
-        # "query_value": "Vanessa",
-        "important_fields": ["first_name", "team"]
-        }
-    )
-    print(res)
-
-
-if __name__ == "__main__":
-    main()
