@@ -6,7 +6,7 @@ REGION = "us-east-1"  # Update if using a different region
 
 # Create the client for Amazon Bedrock runtime API
 bedrock_client = boto3.client(
-    'bedrock-runtime',
+    'bedrock-agent-runtime',
     region_name=REGION,
     endpoint_url=f'https://bedrock-agent-runtime.{REGION}.amazonaws.com'
 )
@@ -21,7 +21,11 @@ def invoke_agent(agent_id, agent_alias_id, session_id, input_text, enable_trace=
         "inputText": input_text,
         "enableTrace": enable_trace,
         "endSession": end_session,
-        "sessionState": session_state
+        "sessionState": session_state,
+        "agentAliasId":agent_alias_id,
+        "agentId": agent_id,
+        "sessionId": session_id
+
     }
 
     try:
@@ -45,12 +49,4 @@ def invoke_agent(agent_id, agent_alias_id, session_id, input_text, enable_trace=
     except Exception as e:
         print(f"Error invoking agent: {str(e)}")
 
-# Example usage
-if __name__ == "__main__":
-    agent_id = "ANRXDNNKLS"  # Replace with your actual agent ID
-    agent_alias_id = "4OCZCCVYT3"  # Replace with your alias ID
-    session_id = "your_session"  # Set this to continue a conversation
-    input_text = "Hello, how can I assist you?"
-    
-    # Invoke the agent  
-    invoke_agent(agent_id, agent_alias_id, session_id, input_text)
+
